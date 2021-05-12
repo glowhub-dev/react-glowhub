@@ -1,3 +1,2 @@
-import Button from './components/Button'
-
-export { Button }
+import GlowhubLoader from './components/GlowhubLoader'
+export { GlowhubLoader }
