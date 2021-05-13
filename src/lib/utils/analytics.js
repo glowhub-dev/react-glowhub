@@ -10,7 +10,7 @@ class glowAnalytics {
 
     this.beaconsData = {
       clientID: clientID,
-      user_id: this.clientIdLocalStorage || null,
+      user_id: this.clientIdLocalStorage || Math.random().toString(36).substring(2),
       viewTempID: Math.random().toString(36).substring(2),
       webEvent: event,
       title: document.title,
@@ -39,18 +39,28 @@ class glowAnalytics {
   sendTempData() {
     this.beaconsData.sendDate = this.beaconsData.loadedDate
     navigator.sendBeacon(`${this.baseURL}?temp=true`, JSON.stringify(this.beaconsData));
+    console.log('=================')
+    console.log('MANDO TEMP DATA:')
+    console.log('USER_ID', this.beaconsData.user_id)
+    console.log('WIEW:ID', this.beaconsData.viewTempID)
+    console.log('=================')
   }
 
   sendData() {
     this.beaconsData.sendDate = new Date().getTime()
     navigator.sendBeacon(this.baseURL, JSON.stringify(this.beaconsData));
+    console.log('=================')
+    console.log('MANDO DATA FINAL')
+    console.log('USER_ID', this.beaconsData.user_id)
+    console.log('WIEW:ID', this.beaconsData.viewTempID)
+    console.log('=================')
   }
 
   setLocalStorage() {
     if (!this.privacy && !this.withoutcookies) {
       let randomUser = Math.random().toString(36).substring(2);
       localStorage.setItem("GlowAnalytics", `ga_${randomUser}`)
-      console.log('Instalo localstorage')
+      console.log('INSTALO LOCALSTORAGE')
     }
   }
 
