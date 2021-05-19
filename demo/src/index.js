@@ -1,15 +1,17 @@
-import React, {Component} from 'react'
-import {render} from 'react-dom'
+import React, { Component } from 'react'
+import { render } from 'react-dom'
 
-import Example from '../../src'
+import { GlowHubLoader } from '../../src'
 
 export default class Demo extends Component {
   render() {
     return <div>
       <h1>react-glowhub Demo</h1>
-      <Example/>
+      <GlowHubLoader
+        clientID='GH-JNIALL0KOBA'
+      />
     </div>
   }
 }
 
-render(<Demo/>, document.querySelector('#demo'))
+render(<Demo />, document.querySelector('#demo'))
