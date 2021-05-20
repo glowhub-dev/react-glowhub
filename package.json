@@ -1,10 +1,10 @@
 {
   "name": "react-glowhub",
-  "version": "1.1.7",
-  "description": "react-glowhub React component",
+  "version": "1.2.0",
+  "description": "react-glowhub is a react library for using GlowHub components in your react app.",
   "author": "manucaralmo",
   "license": "MIT",
-  "repository": "manucaralmo/react-glowhub",
+  "repository": "glowhub-dev/react-glowhub",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [

@@ -1,16 +1,34 @@
 # react-glowhub
+![npm](https://img.shields.io/npm/v/react-glowhub)
+![npm](https://img.shields.io/npm/dm/react-glowhub)
+![npm bundle size](https://img.shields.io/bundlephobia/min/react-glowhub)
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
+react-glowhub is a react library for using GlowHub components in your react app. It is very simple to use and most of the configuration is done through glowhub.dev.
 
-Describe react-glowhub here.
+## Installing
 
-[build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
-[build]: https://travis-ci.org/user/repo
+Using npm
+```js 
+npm i react-glowhub
+```
 
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
+## Getting Started
+Import GlowHubLoader from react-glowhub and add the GlowHubLoader to your app first.
 
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
+```js
+import { GlowHubLoader } from 'react-glowhub'
+
+const App = () => {
+  return (
+    <div>
+      <GlowHubLoader 
+        clientID='GH-ER4JHWJNRV' 
+      />
+
+      <h1>Your content</h1>
+    </div>
+  );
+};
+```
+
+The rest of the configuration can be done from glowhub.dev

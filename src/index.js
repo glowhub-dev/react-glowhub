@@ -17,7 +17,6 @@ export const GlowHubLoader = ({ clientID }) => {
   useEffect(() => {
     if (!analyticsInstance && accountConfig?.analytics) {
       setAnalyticsInstance(new glowAnalytics(clientID))
-      console.log('=== CREO INSTANCIA ===')
     }
   }, [clientID, analyticsInstance, accountConfig])
 
@@ -26,7 +25,6 @@ export const GlowHubLoader = ({ clientID }) => {
       if (analyticsInstance) {
         analyticsInstance.sendData()
         analyticsInstance.deleteListeners()
-        console.log('Cambio de path')
       }
     })
   }, [listen, analyticsInstance])

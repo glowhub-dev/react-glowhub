@@ -43,39 +43,43 @@ export default class glowAnalytics {
   sendTempData() {
     this.beaconsData.sendDate = this.beaconsData.loadedDate
     navigator.sendBeacon(`${this.baseURL}?temp=true`, JSON.stringify(this.beaconsData));
-    console.log('=================')
-    console.log('MANDO TEMP DATA:')
-    console.log('USER_ID', this.beaconsData.user_id)
-    console.log('WIEW:ID', this.beaconsData.viewTempID)
-    console.log('=================')
   }
 
   sendData() {
     this.beaconsData.sendDate = new Date().getTime()
     navigator.sendBeacon(this.baseURL, JSON.stringify(this.beaconsData));
-    console.log('=================')
-    console.log('MANDO DATA FINAL')
-    console.log('USER_ID', this.beaconsData.user_id)
-    console.log('WIEW:ID', this.beaconsData.viewTempID)
-    console.log('=================')
   }
 
   setLocalStorage() {
     if (!this.privacy && !this.withoutcookies) {
       let randomUser = Math.random().toString(36).substring(2);
       localStorage.setItem("GlowAnalytics", `ga_${randomUser}`)
-      console.log('INSTALO LOCALSTORAGE')
     }
   }
 
   addListener() {
-    this.sendDataPageHide = () => { this.sendData() }
-    this.sendDataVisibilityHide = () => {
-      if (document.visibilityState === 'hidden') {
+    let blockFunc = false
+    const blockFunction = () => {
+      blockFunc = true
+      setTimeout(() => { blockFunc = false }, 500)
+    }
+
+    this.sendDataPageHide = () => {
+      if (!blockFunc) {
         this.sendData()
-      } else if (document.visibilityState === 'visible') {
-        this.sendTempData()
+        blockFunction()
       }
+    }
+
+    this.sendDataVisibilityHide = () => {
+      if (!blockFunc) {
+        if (document.visibilityState === 'hidden') {
+          this.sendData()
+        } else if (document.visibilityState === 'visible') {
+          this.sendTempData()
+        }
+      }
+      blockFunction()
     }
 
     document.addEventListener('visibilitychange', this.sendDataVisibilityHide)
