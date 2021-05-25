@@ -34,12 +34,15 @@ export const GlowHubLoader = ({ clientID }) => {
   const acceptCookies = () => {
     localStorage.setItem("GlowCookies", '1')
     changeOpen(false)
-    analyticsInstance?.start()
+    analyticsInstance?.sendCookiesData(true)
+    analyticsInstance?.start({ woCookies: false })
   }
 
   const rejectCookies = () => {
     localStorage.setItem("GlowCookies", '0')
     changeOpen(false)
+    analyticsInstance?.sendCookiesData(false)
+    analyticsInstance?.start({ woCookies: true })
   }
 
   useEffect(() => {
@@ -47,9 +50,10 @@ export const GlowHubLoader = ({ clientID }) => {
 
     if (localData === '1') {
       setOpen(false)
-      analyticsInstance?.start()
+      analyticsInstance?.start({ woCookies: false })
     } else if (localData === '0') {
       setOpen(false)
+      analyticsInstance?.start({ woCookies: true })
     } else {
       setOpen(true)
     }

@@ -3,7 +3,7 @@
 
 export default class glowAnalytics {
   constructor(clientID, privacy = false, cookies = false, event = 'pageView') {
-    this.baseURL = `https://api.glowhub.dev/analytics/new/view`
+    this.baseURL = `https://api.glowhub.dev`
     this.clientIdLocalStorage = localStorage.getItem("GlowAnalytics") || undefined
     this.privacy = privacy
     this.withoutcookies = cookies
@@ -32,7 +32,9 @@ export default class glowAnalytics {
     this.sendTempDataVisible = undefined
   }
 
-  start() {
+  start({ woCookies }) {
+    this.withoutcookies = woCookies ? true : false
+
     !this.clientIdLocalStorage && this.setLocalStorage()
     if (this.beaconsData.clientID) {
       this.sendTempData()
@@ -42,12 +44,16 @@ export default class glowAnalytics {
 
   sendTempData() {
     this.beaconsData.sendDate = this.beaconsData.loadedDate
-    navigator.sendBeacon(`${this.baseURL}?temp=true`, JSON.stringify(this.beaconsData));
+    navigator.sendBeacon(`${this.baseURL}/analytics/new/view?temp=true`, JSON.stringify(this.beaconsData));
   }
 
   sendData() {
     this.beaconsData.sendDate = new Date().getTime()
-    navigator.sendBeacon(this.baseURL, JSON.stringify(this.beaconsData));
+    navigator.sendBeacon(`${this.baseURL}/analytics/new/view`, JSON.stringify(this.beaconsData));
+  }
+
+  sendCookiesData(action) {
+    navigator.sendBeacon(`${this.baseURL}/cookies/new/${this.beaconsData.clientID}/${action ? 'true' : 'false'}`)
   }
 
   setLocalStorage() {
